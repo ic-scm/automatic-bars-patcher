@@ -11,16 +11,16 @@
 int main(int argc, char** args) {
     if(argc < 2 || strcmp(args[1], "--help") == 0 || strcmp(args[1], "-h") == 0) {
         printf("Automatic BARS Patcher %s\nCopyright (C) 2020 I.C.\nThis program is free software, see the license file for more information.\n\nUsage: auto_bars_patcher [options...]\n\n", barspatcher_getVersionString());
-        printf("Options:\n--og-stream-dir [directory path] - Directory with original unmodified BWAV files\n--mod-stream-dir [directory path] - Directory with modified BWAV files\n--og-bars-file [file path] - Original unmodified BARS file\n--bars-output-file [file path] - Location for the patched BARS file\n");
+        printf("Options:\n--og-stream-dir [directory path] - Directory with original unmodified BWAV files\n--mod-stream-dir [directory path] - Directory with modified BWAV files\n--og-bars-file [file path] - Original unmodified BARS file\n--bars-output-file [file path] - Location for the patched BARS file\n\n-v - Verbose output\n");
         
         return 0;
     }
     
     //Command line options
-    const char* opts[] = {"-og-stream-dir","-mod-stream-dir","-og-bars-file","-bars-output-file"};
-    const char* opts_alt[] = {"--og-stream-dir","--mod-stream-dir","--og-bars-file","--bars-output-file"};
-    const unsigned int optcount = 4;
-    const bool optrequiredarg[optcount] = {1,1,1,1};
+    const char* opts[] = {"-og-stream-dir","-mod-stream-dir","-og-bars-file","-bars-output-file","-v"};
+    const char* opts_alt[] = {"--og-stream-dir","--mod-stream-dir","--og-bars-file","--bars-output-file","--verbose"};
+    const unsigned int optcount = 5;
+    const bool optrequiredarg[optcount] = {1,1,1,1,0};
     bool  optused  [optcount];
     char* optargstr[optcount];
     
@@ -57,7 +57,7 @@ int main(int argc, char** args) {
     }
     
     unsigned char bars_res;
-    bars_res = barspatcher_run(optargstr[0], optargstr[1], optargstr[2], optargstr[3]);
+    bars_res = barspatcher_run(optused[4] ,optargstr[0], optargstr[1], optargstr[2], optargstr[3]);
     
     if(bars_res != 0) {
         printf("BARS patch error. (%d, %s)\n", bars_res, barspatcher_getErrorString(bars_res));
