@@ -25,7 +25,7 @@ int main(int argc, char** args) {
     char* optargstr[optcount];
     
     //Parse command line options
-    for(unsigned int a=1;a<argc;a++) {
+    for(int a=1;a<argc;a++) {
         int vOpt = -1;
         //Compare cmd arg against each known option
         for(unsigned int o=0;o<optcount;o++) {
