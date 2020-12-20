@@ -63,6 +63,9 @@ int main(int argc, char** args) {
         printf("BARS patch error. (%d, %s)\n", bars_res, barspatcher_getErrorString(bars_res));
         return 2;
     }
+    else if(bars_res > 0) {
+        printf("%d %stracks were skipped.\n", bars_res, (bars_res == 99 ? "or more " : ""));
+    }
     
     return 0;
 }
