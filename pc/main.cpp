@@ -59,7 +59,7 @@ int main(int argc, char** args) {
     unsigned char bars_res;
     bars_res = barspatcher_run(optused[4] ,optargstr[0], optargstr[1], optargstr[2], optargstr[3]);
     
-    if(bars_res != 0) {
+    if(bars_res >= 100) {
         printf("BARS patch error. (%d, %s)\n", bars_res, barspatcher_getErrorString(bars_res));
         return 2;
     }
