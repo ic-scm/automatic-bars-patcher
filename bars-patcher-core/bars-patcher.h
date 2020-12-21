@@ -15,7 +15,9 @@
 #include "utils.h"
 
 //Platform specific libraries
-#ifdef BARSPATCHER_VERSION_PC
+#if defined BARSPATCHER_VERSION_PC
+#include <dirent.h>
+#elif defined BARSPATCHER_VERSION_NX
 #include <dirent.h>
 #else
 #error "No supported BARSPATCHER_VERSION defined."

@@ -10,6 +10,7 @@ The code in this file uses platform-specific code, you'll also need to define BA
 
 Supported platforms:
 - BARSPATCHER_VERSION_PC - Standard POSIX system.
+- BARSPATCHER_VERSION_NX - Nintendo Switch devkitPro environment. Currently this is the same as BARSPATCHER_VERSION_PC.
 
 Please note that this code also uses some C++ features and should be included from C++ code.
 
