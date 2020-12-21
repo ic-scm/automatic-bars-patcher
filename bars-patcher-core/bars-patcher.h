@@ -31,7 +31,7 @@
 #define BARSPATCHER_OGBWAV_MEMBLOCK_SIZE 0x100
 #define BARSPATCHER_MODBWAV_MEMBLOCK_SIZE 65536
 
-const char* barspatcher_version = "v0.0.0";
+const char* barspatcher_version = "v0.1.0";
 
 //Returns the version string of this code.
 const char* barspatcher_getVersionString() {return barspatcher_version;}
