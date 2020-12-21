@@ -139,6 +139,7 @@ unsigned char barspatcher_run(bool verbose, const char* og_stream_dirname, const
     
     //Read mod stream directory listing
     char* mod_dir_list[BARSPATCHER_DIRLIST_LIMIT];
+    mod_dir_list[0] = NULL;
     uint16_t mod_dir_list_count = 0;
     
     DIR* mod_dir;
