@@ -20,6 +20,9 @@ int main(int argc, char** args) {
     padInitializeDefault(&pad);
     uint64_t kDown;
     
+    //Redirect all stderr output to stdout.
+    dup2(1, 2);
+    
     //Print initial welcome message
     printf("Automatic BARS Patcher \x1b[32m%s\x1b[0m\nCopyright (C) 2020 I.C.\nThis program is free software, see the license file for more information.\n", barspatcher_getVersionString());
     printf("Report issues to \x1b[36mhttps://github.com/ic-scm/automatic-bars-patcher/issues\x1b[0m.\n\n");
