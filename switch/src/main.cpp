@@ -178,7 +178,7 @@ int main(int argc, char** args) {
             printf("\x1b[32mSuccess!\x1b[0m");
         }
         else if(bars_res > 0 && bars_res < 100) {
-            printf("\x1b[33mWarning: Some tracks were skipped. Patched tracks will still work in the game.\x1b[0m");
+            printf("\x1b[33mWarning: Some tracks were skipped. Patched tracks will still work in the game. \x1b[0m");
         }
         else if(bars_res > 100) {
             printf("\x1b[31mBARS patching error.\x1b[0m");
