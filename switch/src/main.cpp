@@ -2,6 +2,8 @@
 //Copyright (C) 2020 I.C.
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
 #include <dirent.h>
 #include <switch.h>
 
@@ -9,6 +11,7 @@
 #include "../../bars-patcher-core/bars-patcher.h"
 
 #include "config.h"
+#include "swkbd.h"
 #include "path-resolver.h"
 
 int main(int argc, char** args) {
