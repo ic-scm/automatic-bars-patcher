@@ -11,6 +11,7 @@ void swkbd_edit_text(char* (&str), const char* hint) {
     
     //Allocate output buffer 4 times size input, aligned to 0x100
     uint32_t res_str_bufsize = strlen(str) * 4;
+    if(res_str_bufsize < 500) res_str_bufsize = 500;
     while(res_str_bufsize % 256 != 0) res_str_bufsize++;
     char* res_str = (char*)malloc(res_str_bufsize);
     if(res_str == NULL) return;
@@ -23,7 +24,7 @@ void swkbd_edit_text(char* (&str), const char* hint) {
     }
     
     //Set initial and hint text
-    swkbdConfigSetInitialText(&swkbd, str);
+    if(strlen(str) > 0) swkbdConfigSetInitialText(&swkbd, str);
     swkbdConfigSetGuideText(&swkbd, hint);
     
     //Set cursor position to the end of current text
