@@ -47,11 +47,36 @@ int main(int argc, char** args) {
     
     config_init(config_storage);
     
-    if( config_load_default(config_storage) ) {
-        printf("%s", malloc_errstr);
-        consoleUpdate(NULL);
-        usleep(5000000);
-        abort();
+    unsigned char config_res;
+    config_res = config_read(config_storage);
+    
+    if(config_res != 0) {
+        switch(config_res) {
+            case 1: printf("%s", malloc_errstr); break;
+            case 2: printf("\x1b[31mThe config file could not be loaded. Please check the game-config.txt file.\x1b[0m\n"); break;
+            case 3: printf("\x1b[31mThe config file is too big. Please check the game-config.txt file, or delete it to load the default configuration.\x1b[0m\n"); break;
+            case 4: printf("\x1b[31mThe config file has too many entries. Please check the game-config.txt file, or delete it to load the default configuration.\x1b[0m\n"); break;
+            default: printf("\x1b[31mAn unknown error has occurred when loading the config file.\x1b[0m\n"); break;
+        }
+        
+        printf("Press (+) to exit.\n");
+        
+        //Wait for exit command
+        while(1) {
+            if(!appletMainLoop()) goto main_exit;
+            //Refresh inputs
+            padUpdate(&pad);
+            kDown = padGetButtonsDown(&pad);
+            
+            //Exit on (+) press
+            if(kDown & HidNpadButton_Plus) goto main_exit;
+            
+            consoleUpdate(NULL);
+        }
+    }
+    
+    else {
+        printf("Loaded config from \x1b[32m%s\x1b[0m.\n\n", config_path);
     }
     
     if(config_storage->entries_loaded == 0) {
@@ -235,7 +260,9 @@ int main(int argc, char** args) {
                     
                     //Take inputs
                     if(kDown & HidNpadButton_A) {
-                        //TODO config writer
+                        bool cwrite_res = config_write(config_storage);
+                        
+                        if(cwrite_res) printf("\x1b[31mError: Could not save config file\x1b[0m\n");
                         
                         break;
                     }
@@ -250,7 +277,6 @@ int main(int argc, char** args) {
         }
         
         //Stage 3: Main BARS patching.
-        //TODO: Run barspatcher_run on another thread
         printf("\x1b[32mRunning BARS patcher, please wait...\x1b[0m\n");
         consoleUpdate(NULL);
         
@@ -265,16 +291,16 @@ int main(int argc, char** args) {
         printf("\n");
         
         if(bars_res == 0) {
-            printf("\x1b[32mSuccess!\x1b[0m");
+            printf("\x1b[32mSuccess! \x1b[0m");
         }
         else if(bars_res > 0 && bars_res < 100) {
-            printf("\x1b[33mWarning: Some tracks were skipped. Patched tracks will still work in the game. \x1b[0m");
+            printf("\x1b[33mWarning: Some tracks were skipped. Patched tracks will still work in the game.\n\x1b[0m");
         }
         else if(bars_res > 100) {
-            printf("\x1b[31mBARS patching error.\x1b[0m");
+            printf("\x1b[31mBARS patching error. \x1b[0m");
         }
         
-        printf(" Press (+) to exit.\n");
+        printf("Press (+) to exit.\n");
         
         
         //Stage 4: Done, wait for exit command

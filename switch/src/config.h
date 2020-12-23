@@ -253,9 +253,6 @@ unsigned char config_read(bars_config_storage_t* config) {
         //Increment position in fbuf until we are no longer on a LF or CR character.
         while(pos < fsize && (fbuf[pos] == '\n' || fbuf[pos] == '\r')) pos++;
         
-        //DEBUG
-        printf("%s\n", line);
-        
         //Continue if the line is a comment, empty, etc.
         if(llen == 0) continue;
         if(line[0] == '#' || line[0] == ' ') continue;
@@ -365,9 +362,6 @@ unsigned char config_read(bars_config_storage_t* config) {
             }
         }
         
-        
-        //DEBUG
-        printf("\n");
     }
     
     free(fbuf);
