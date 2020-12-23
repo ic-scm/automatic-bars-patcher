@@ -44,6 +44,10 @@ DATA		:=	data
 INCLUDES	:=	include
 #ROMFS	:=	romfs
 
+APP_TITLE       := Automatic BARS patcher
+APP_AUTHOR      := IC
+APP_VERSION     := v0.2.0
+
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
