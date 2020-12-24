@@ -22,7 +22,7 @@ You can add your own game configurations with the config file, see [this page](/
 
 To use this tool, you will need these things:
 - An original legal copy of the game you are modding.
-- The dumped sound files from the game, including any updates. You can dump your game's files with [nxdumptool](https://github.com/DarkMatterCore/nxdumptool/), this tool's default configuration uses the default RomFS dump locations of nxdumptool. **It's very important that your dumped files are from the same update version of the game that you will be using the mod with!**
+- The dumped sound files from the game, including any updates. You can dump your game's files with [nxdumptool](https://github.com/DarkMatterCore/nxdumptool/), the BARS patcher's default configuration uses the default RomFS dump locations of nxdumptool. **It's very important that your dumped files are from the same update version of the game that you will be using the mod with!**
 - Custom BWAV files for the mod.
 
 When you open the homebrew app, you will be asked to choose the game and to confirm or edit the paths for the needed directories and files.
