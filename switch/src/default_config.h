@@ -31,6 +31,7 @@ bool config_load_default(bars_config_storage_t* config) {
     //Example configuration for new game
     //Please add new games below the last entry and above this example entry.
     /*
+    
     const char* newgame_id = "newgame";
     const char* newgame_full_name = "Example Game";
     
@@ -48,6 +49,7 @@ bool config_load_default(bars_config_storage_t* config) {
     );
     if(res) { config_free(config); return 1; }
     config->entries_loaded++;
+    
     */
     
     return 0;
