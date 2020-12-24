@@ -1,6 +1,8 @@
 //Permanent default configuration.
 //Copyright (C) 2020 I.C.
 
+//If you are here to add a new game configuration, look to the bottom of this file.
+
 void config_free(bars_config_storage_t*);
 bool config_alloc_load_entry(bars_game_config_t*(&), const char*, const char*, const char*, const char*, const char*, const char*);
 
