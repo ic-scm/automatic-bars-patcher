@@ -164,17 +164,18 @@ bool config_write(bars_config_storage_t* config) {
 unsigned char config_read(bars_config_storage_t* config) {
     config_free(config);
     
+    //Always load default config as base
+    bool cres = config_load_default(config);
+    if(cres) return 1;
+    
     FILE* cfile;
     size_t fsize;
     char* fbuf;
     cfile = fopen(config_path, "rb");
     
     if(cfile == NULL) {
-        //Load and write default config if the file doesn't exist
+        //Write default config if the file doesn't exist
         if(errno == ENOENT) {
-            bool cres = config_load_default(config);
-            if(cres) return 1;
-            
             //This function can fail, the config_load function will most likely load the default config again on the next run.
             config_write(config);
             
@@ -264,7 +265,33 @@ unsigned char config_read(bars_config_storage_t* config) {
         
         //New game header
         if(line[0] == '^') {
-            entry_pos++;
+            bool overwriting_entry = 0;
+            
+            //Compare GameID against all previously loaded entries
+            for(uint16_t e = 0; e < config->entries_loaded; e++) {
+                if(strcmp(line + 1, config->entries[e]->id) == 0) {
+                    //Write data to previously loaded entry if found
+                    entry_pos = e;
+                    overwriting_entry = 1;
+                    break;
+                }
+            }
+            
+            if(overwriting_entry == 0) {
+                //New entry
+                entry_pos = config->entries_loaded;
+            } else {
+                //Set pointer addresses in key array to the current entry
+                key_array_output[0] = &config->entries[entry_pos]->full_name;
+                key_array_output[1] = &config->entries[entry_pos]->bars_path;
+                key_array_output[2] = &config->entries[entry_pos]->stream_dir;
+                key_array_output[3] = &config->entries[entry_pos]->mod_stream_dir;
+                key_array_output[4] = &config->entries[entry_pos]->output_bars_path;
+                
+                //Break now, we shouldn't reallocate anything
+                continue;
+            }
+            
             //Give up if we reached the limit of game entries
             if(entry_pos >= MAX_CONFIG_SIZE) {
                 free(fbuf);
